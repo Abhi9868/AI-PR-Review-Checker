@@ -40,3 +40,34 @@ def fetch_file_content(repo_url, file_path, github_token=None):
     
     
         
+
+def collect_files(url, files=None):
+    if files is None:
+        files = []
+
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        data = response.json()
+
+        for item in data:
+            if item["type"] == "file":
+                files.append({
+                    "name": item["name"],
+                    "path": item["path"],
+                    "download_url": item["download_url"]
+                })
+            elif item["type"] == "dir":
+                collect_files(item["url"], files)  # Recursive call
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching {url}: {e}")
+    
+    return files
+
+if __name__ == "__main__":
+    base_url = "https://api.github.com/repos/Abhi9868/AI-PR-Review-Checker/contents/"
+    collected_files = collect_files(base_url)
+    
+    print(f"Total files collected: {len(collected_files)}")
+    for file in collected_files:
+        print(file)
