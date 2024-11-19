@@ -13,7 +13,8 @@ def start_task(request):
     
     return Response({
         "task_id":task.id,
-        "status":"Task started"
+        "status":"Task started",
+        
     })
     
     
