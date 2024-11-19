@@ -54,7 +54,7 @@ def analyze_pr(repo_url, pr_number, github_token=None):
                 "file_name":file_name
             })
             
-            return {
+        return {
                 "task_id":task_id,
                 "results":analysis_results,
             }

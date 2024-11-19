@@ -126,7 +126,6 @@ def analyze_pr(repo_url, pr_number, github_token=None):
         
         analysis_results = []
         for file in pr_files:
-            print(file)
             file_name = file["filename"]
             print(file_name)
             raw_content = fetch_file_content(repo_url, file_name, github_token)
@@ -149,8 +148,9 @@ def analyze_pr(repo_url, pr_number, github_token=None):
             "task_id": task_id,
             "results": [],
         }
-result=analyze_pr("https://github.com/Abhi9868/AI-PR-Review-Checker",4,None)
+result=analyze_pr("https://github.com/Abhi9868/AI-PR-Review-Checker",7,None)
+escaped_result = json.dumps(result).replace("\n", "\\n").replace("\t", "\\t").replace("\r", "\\r")
 # save to json file
 with open("result.json","w") as f:
-    json.dump(result,f)
-# print(result)
+    f.write(escaped_result)
+print(result)
