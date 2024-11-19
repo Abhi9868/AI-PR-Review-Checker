@@ -121,7 +121,6 @@ def analyze_pr(repo_url, pr_number, github_token=None):
         pr_files = fetch_pr_files(repo_url, pr_number, github_token)
         print(len(pr_files))
         
-        # Save to JSON file
         with open("pr_files.json", "w") as f:
             json.dump(pr_files, f)
         
